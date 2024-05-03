@@ -4,7 +4,7 @@ import swaggerJsdoc from 'swagger-jsdoc'
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: 'Interactive Blogging API',
+      title: 'FUNVAL Blogging API',
       version: '1.0.0',
       description: 'RESTful API for an interactive blogging platform'
     },

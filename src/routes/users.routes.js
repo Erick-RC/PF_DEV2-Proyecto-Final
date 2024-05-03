@@ -1,4 +1,5 @@
 import express from 'express'
+import bodyParser from 'body-parser'
 import {
   getUsers,
   getUserById,
@@ -8,6 +9,9 @@ import {
 } from '../controllers/users.controller.js'
 
 const router = express.Router()
+
+// Configurar body-parser para analizar el cuerpo de la petición en formato JSON
+router.use(bodyParser.json())
 
 /**
  * @swagger
@@ -65,9 +69,12 @@ router.get('/:id', getUserById)
  *               email:
  *                 type: string
  *                 description: The email of the user
- *             required:
- *               - username
- *               - email
+ *               password:
+ *                 type: string
+ *                 description: The password of the user
+ *               role:
+ *                 type: string
+ *                 description: The role of the user (e.g., "user" or "admin")
  *     responses:
  *       '201':
  *         description: User created successfully
@@ -108,6 +115,8 @@ router.post('/', createUser)
  *     responses:
  *       '200':
  *         description: User updated successfully
+ *       '400':
+ *         description: Bad request, missing username or email
  *       '404':
  *         description: User not found
  *       '500':
