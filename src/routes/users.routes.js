@@ -1,5 +1,7 @@
 import express from 'express'
-import bodyParser from 'body-parser'
+import bodyParser from 'body-parser' // Agrega la importación de bodyParser
+import swaggerUi from 'swagger-ui-express'
+import swaggerJsdoc from 'swagger-jsdoc'
 import {
   getUsers,
   getUserById,
@@ -146,5 +148,24 @@ router.put('/:id', updateUser)
  *         description: Server error
  */
 router.delete('/:id', deleteUser)
+
+// Opciones de configuración para Swagger JSDoc
+const options = {
+  definition: {
+    openapi: '3.0.0', // Especifica la versión de OpenAPI que estás utilizando
+    info: {
+      title: 'Nombre de tu API', // Título de tu API
+      version: '1.0.0', // Versión de tu API
+      description: 'Descripción de tu API' // Descripción de tu API
+    }
+  },
+  apis: ['./routes/*.js'] // Rutas donde se encuentra la documentación de Swagger
+}
+
+// Configura Swagger JSDoc con las opciones definidas
+const specs = swaggerJsdoc(options)
+
+// Genera y sirve la documentación de Swagger UI
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs))
 
 export default router
